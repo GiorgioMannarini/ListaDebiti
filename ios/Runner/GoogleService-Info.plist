@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>980592679477-scrfrj0f5g29j47tfqr1fnuu3mskg4j3.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.980592679477-scrfrj0f5g29j47tfqr1fnuu3mskg4j3</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>980592679477-ga1etoh7elthj4m90v6fto9cldavq7t3.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCz7sBYCTWs9hDoiCdwNBsuySjV5FOoyTY</string>
+	<key>GCM_SENDER_ID</key>
+	<string>980592679477</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.listaDebiti</string>
+	<key>PROJECT_ID</key>
+	<string>lista-debiti</string>
+	<key>STORAGE_BUCKET</key>
+	<string>lista-debiti.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:980592679477:ios:05f28cfc9e67772e3eef7c</string>
+	<key>DATABASE_URL</key>
+	<string>https://lista-debiti.firebaseio.com</string>
+</dict>
+</plist>

@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "980592679477",
+    "firebase_url": "https://lista-debiti.firebaseio.com",
+    "project_id": "lista-debiti",
+    "storage_bucket": "lista-debiti.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:980592679477:android:c8dd1925c0506d9f3eef7c",
+        "android_client_info": {
+          "package_name": "com.example.lista_debiti"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "980592679477-ga1etoh7elthj4m90v6fto9cldavq7t3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.lista_debiti",
+            "certificate_hash": "d458f4e9ef2c3e93e1cfc4f633ebfae966dfdd0d"
+          }
+        },
+        {
+          "client_id": "980592679477-2ivnvne2grpke5ib4ik72u7m4ck4epn2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC4NMuOAqDZThz5klgyjjvXdX3qLgg5x5Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "980592679477-2ivnvne2grpke5ib4ik72u7m4ck4epn2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
