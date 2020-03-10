@@ -77,7 +77,7 @@ class _LoginPageState extends State<LoginPage> {
           idToken = token;
         }).then((_){
           setState(() {
-          loginPresent = true; //se il token c'è mostra il circular indicator.
+          loginPresent = true; //se il token c'è mostra il circular indicator
         });
         });
         
