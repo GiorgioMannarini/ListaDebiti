@@ -21,17 +21,7 @@ class _LoginPageState extends State<LoginPage> {
 
   LoginController loginController = LoginController();
 
-  //ritorna true se il token esiste, false se non esiste
-  Future<bool> getTokenValue() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String token = prefs.getString('token');
-    if (token != null){
-      return (true);
-    }
-    else{
-      return(false);
-    }
-  }
+ 
 
   
   doSilentLogin(token) {
@@ -39,13 +29,7 @@ class _LoginPageState extends State<LoginPage> {
     loginController.sendRequest(token).then((result) {
       if (result.statusCode == 200){
         SchedulerBinding.instance.addPostFrameCallback((_) {
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) {
-              return FirstScreen();
-            },
-          ),
-        );
+        Navigator.pushNamed(context, '/mainPage');
       });
       }
       else{
@@ -70,7 +54,9 @@ class _LoginPageState extends State<LoginPage> {
 
   //quando viene istanziata. Costruttore.
   _LoginPageState() {
-    getTokenValue().then((res) {
+    
+    loginController.getTokenValue().then((res) {
+  
       if (res) {
         loginController.getNewToken().then((token){
     

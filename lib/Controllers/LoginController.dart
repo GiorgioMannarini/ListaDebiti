@@ -1,11 +1,12 @@
-import 'dart:io';
+
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
+import 'package:lista_debiti/Controllers/BaseController.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class LoginController {
+class LoginController extends BaseController{
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn googleSignIn = GoogleSignIn();
 
@@ -38,9 +39,11 @@ class LoginController {
   }
 
   Future signOutGoogle() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.remove('token');
     await googleSignIn.signOut();
 
-    print("User Sign Out");
+    
   }
 
   Future sendRequest(idToken) async {
@@ -62,4 +65,6 @@ class LoginController {
 
     return (token);
   }
+
+  
 }
