@@ -3,7 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../Controllers/LoginController.dart';
 import './LoginPage.dart';
 import '../Components/ContainerButton.dart';
-import '../../Controllers/FirstScreeController.dart';
+import '../../Controllers/FirstScreenController.dart';
 
 
 class FirstScreen extends StatefulWidget {
@@ -43,10 +43,10 @@ class _FirstScreenState extends State<FirstScreen> {
                   RaisedButton(
                       child: Text('Signout'),
                       onPressed: () {
-                        loginController.signOutGoogle().then((_) {
+                        /*loginController.signOutGoogle().then((_) {
                         
                          Navigator.pushNamed(context, '/');
-                        });
+                        });*/
                       }),
                 ],
               ),
@@ -95,8 +95,8 @@ class _FirstScreenState extends State<FirstScreen> {
                 child: Row(
                   children: <Widget>[
                    ContainerButton("Log1", FaIcon(FontAwesomeIcons.signOutAlt), Colors.purple, (){firstScreenController.logoutButton(context);} ),
-                   ContainerButton("Logout", FaIcon(FontAwesomeIcons.signOutAlt), Colors.orange, (){print('prova');}),
-                   ContainerButton("Logout", FaIcon(FontAwesomeIcons.signOutAlt), Colors.greenAccent, (){print('prova');}),
+                   ContainerButton("Logout", FaIcon(FontAwesomeIcons.signOutAlt), Colors.orange, (){print('prova3');}),
+                   ContainerButton("Logout", FaIcon(FontAwesomeIcons.signOutAlt), Colors.greenAccent, (){print('prova2');}),
                     
                     
                   ],

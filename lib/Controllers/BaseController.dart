@@ -1,17 +1,12 @@
 // base controller
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class BaseController {
-  
-   //ritorna true se il token esiste, false se non esiste
-  Future<bool> getTokenValue() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String token = prefs.getString('token');
-    if (token == null){
-      return (false);
-    }
-    else{
-      return(true);
-    }
+
+  Future getCurrentUser() async {
+    FirebaseUser _user = await FirebaseAuth.instance.currentUser();
+    return _user;
   }
+  
+
 }

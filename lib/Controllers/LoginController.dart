@@ -4,7 +4,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
 import 'package:lista_debiti/Controllers/BaseController.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginController extends BaseController{
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -33,28 +32,22 @@ class LoginController extends BaseController{
     final FirebaseUser currentUser = await _auth.currentUser();
     assert(user.uid == currentUser.uid);
 
-    sendRequest(idToken);
+    sendLogin(idToken);
 
     return 'signInWithGoogle succeeded: $user';
   }
 
-  Future signOutGoogle() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.remove('token');
-    await googleSignIn.signOut();
-
-    
+  Future signOut() async {
+    await _auth.signOut();
   }
 
-  Future sendRequest(idToken) async {
+  Future sendLogin(idToken) async {
     var url = "http://127.0.0.1:8000/token/";
 
     var response = await http.post(url,
         headers: {'Content-Type': 'application/x-www-form-urlencoded'},
         body: {"token": idToken});
 
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString('token', idToken);
     return response;
   }
 

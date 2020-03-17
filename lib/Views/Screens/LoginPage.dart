@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import '../Components/SignInButton.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import '../../Controllers/LoginController.dart';
-import './FirstScreen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
 
 class LoginPage extends StatefulWidget {
   @override
@@ -13,69 +10,50 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-
   bool loginPresent = false;
-  String idToken;
-
-
-
   LoginController loginController = LoginController();
 
- 
-
-  
-  doSilentLogin(token) {
-
-    loginController.sendRequest(token).then((result) {
-      if (result.statusCode == 200){
-        SchedulerBinding.instance.addPostFrameCallback((_) {
-        Navigator.pushNamed(context, '/mainPage');
-      });
-      }
-      else{
+  //quando viene istanziata.
+  void initState() {
+    super.initState();
+    loginController.getCurrentUser().then((user) {
+      if (user != null) {
         setState(() {
-        loginPresent = false;
-        idToken = null;
-      });
-
+          loginPresent = true;
+        });
+        //refresha il token dell'utente loggato ed esegue il silent login
+        loginController.getNewToken().then((tk) {
+          doSilentLogin(tk);
+        });
       }
-      
-    }).catchError((error) async {
-      
+    });
+  }
+
+  void doSilentLogin(token) {
+    loginController.sendLogin(token).then((result) {
+      if (result.statusCode == 200) {
+        SchedulerBinding.instance.addPostFrameCallback((_) {
+          Navigator.pushNamed(context, '/mainPage');
+        });
+      } else {
+        setState(() {
+          loginPresent = false;
+        });
+      }
+    }).catchError((error) {
       setState(() {
         loginPresent = false;
-        idToken = null;
       });
     });
   }
 
-  
 
 
-  //quando viene istanziata. Costruttore.
-  _LoginPageState() {
-    
-    loginController.getTokenValue().then((res) {
-  
-      if (res) {
-        loginController.getNewToken().then((token){
-    
-          idToken = token;
-        }).then((_){
-          setState(() {
-          loginPresent = true; //se il token c'è mostra il circular indicator
-        });
-        });
-        
-      }
-    });
-  }
+
 
   @override
   Widget build(BuildContext context) {
-    if (idToken != null) {
-      doSilentLogin(idToken);
-    }
+
     return Scaffold(
       body: Container(
         color: Colors.white,

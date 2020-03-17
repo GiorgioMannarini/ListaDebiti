@@ -8,9 +8,6 @@ class FirstScreenController extends BaseController {
   final LoginController loginController = LoginController();
 
   void logoutButton(BuildContext context) {
-    loginController.signOutGoogle().then((_) {
-      
-      Navigator.pushNamed(context, '/');
-    });
+    loginController.signOut();
   }
 }
