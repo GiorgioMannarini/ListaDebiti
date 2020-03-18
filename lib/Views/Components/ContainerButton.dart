@@ -1,14 +1,15 @@
 
 
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 
 class ContainerButton extends StatelessWidget {
     String buttonTitle;
-    FaIcon icon;
+    Icon icon;
     Color color;
     VoidCallback onIconPress;
-    ContainerButton(String buttonTitle, FaIcon icon, Color color, VoidCallback onIconPress){
+    //constructor
+    ContainerButton(String buttonTitle, Icon icon, Color color, VoidCallback onIconPress){
       this.icon = icon; 
       this. buttonTitle = buttonTitle;
       this.color = color;
@@ -26,7 +27,7 @@ class ContainerButton extends StatelessWidget {
     decoration: BoxDecoration(
       border: Border.all(
         color: color, 
-        width: 3,
+        width: 2,
       ), 
       borderRadius: BorderRadius.circular(40)
     ),

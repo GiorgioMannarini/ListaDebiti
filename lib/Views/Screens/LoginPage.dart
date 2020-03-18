@@ -31,10 +31,8 @@ class _LoginPageState extends State<LoginPage> {
 
   void doSilentLogin(token) {
     loginController.sendLogin(token).then((result) {
-      if (result.statusCode == 200) {
-        SchedulerBinding.instance.addPostFrameCallback((_) {
-          Navigator.pushNamed(context, '/mainPage');
-        });
+      if (result == true) {
+        Navigator.pushNamed(context, '/mainPage');
       } else {
         setState(() {
           loginPresent = false;

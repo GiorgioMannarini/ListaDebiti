@@ -32,9 +32,9 @@ class LoginController extends BaseController{
     final FirebaseUser currentUser = await _auth.currentUser();
     assert(user.uid == currentUser.uid);
 
-    sendLogin(idToken);
+    return idToken;
 
-    return 'signInWithGoogle succeeded: $user';
+
   }
 
   Future signOut() async {
@@ -48,7 +48,14 @@ class LoginController extends BaseController{
         headers: {'Content-Type': 'application/x-www-form-urlencoded'},
         body: {"token": idToken});
 
-    return response;
+    if (response.statusCode == 200){
+      return true;
+    }
+    else{
+      return false;
+    }
+
+
   }
 
   Future getNewToken() async {

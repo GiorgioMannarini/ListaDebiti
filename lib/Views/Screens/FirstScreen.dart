@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import '../../Controllers/LoginController.dart';
-import './LoginPage.dart';
-import '../Components/ContainerButton.dart';
+import '../Components/ChartContainer.dart';
+import '../Components/ActionsContainer.dart';
 import '../../Controllers/FirstScreenController.dart';
+import '../Components/ContainerButton.dart';
+
 
 
 class FirstScreen extends StatefulWidget {
@@ -12,18 +12,18 @@ class FirstScreen extends StatefulWidget {
 }
 
 class _FirstScreenState extends State<FirstScreen> {
-  final LoginController loginController = LoginController();
 
   final FirstScreenController firstScreenController = FirstScreenController();
+  bool selected = false;
 
 
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: Text('Lista Debiti', 
+        title: Text('Lista Debiti',
         style: TextStyle(
           color: Colors.black,
         ),
@@ -35,74 +35,22 @@ class _FirstScreenState extends State<FirstScreen> {
         children: <Widget>[
           Container(
             decoration: BoxDecoration(color: Color(0xffdfe4ea)),
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  RaisedButton(
-                      child: Text('Signout'),
-                      onPressed: () {
-                        /*loginController.signOutGoogle().then((_) {
-                        
-                         Navigator.pushNamed(context, '/');
-                        });*/
-                      }),
-                ],
-              ),
-            ),
           ),
 
           Column(
             children: <Widget>[
-              Container(
-                padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 21),
-                height: MediaQuery.of(context).size.height/4,
-                width: MediaQuery.of(context).size.width,
-
-                decoration: BoxDecoration(
-                  boxShadow: [
-                    BoxShadow(
-                      blurRadius: 5.0,
-                      color: Colors.grey[300],
-                      spreadRadius: 5.0,
-                    ),
-                  ],
-                  borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(41),
-                    bottomRight: Radius.circular(41)
-                  ),
-                  color: Colors.white,
-                ),
+              ChartContainer(selected),
+              ActionsContainer(
+                  child: Row(
+                    children: <Widget>[
+                      ContainerButton("Expand", Icon(Icons.arrow_downward), Colors.purple, (){setState((){selected = !selected;});} ),
+                      ContainerButton("Settings", Icon(Icons.exit_to_app), Colors.orange, (){print('Settings');}),
+                      ContainerButton("Logout", Icon(Icons.exit_to_app), Colors.greenAccent, (){firstScreenController.logoutButton(context);}),
+                    ],
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  )
               ),
-              //TODO: row con tutti i pulsanti
-              Container(
-                margin: EdgeInsets.symmetric(horizontal: 10),
-                height: 100,
-                decoration: BoxDecoration(
-                  boxShadow: [
-                    BoxShadow(
-                      blurRadius: 5.0,
-                      color: Colors.grey[300],
-                      spreadRadius: 5.0,
-                    ),
-                  ],
-                  borderRadius: BorderRadius.circular(
-                    41
-                  ),
-                  color: Colors.white,
-                ),
-                child: Row(
-                  children: <Widget>[
-                   ContainerButton("Log1", FaIcon(FontAwesomeIcons.signOutAlt), Colors.purple, (){firstScreenController.logoutButton(context);} ),
-                   ContainerButton("Logout", FaIcon(FontAwesomeIcons.signOutAlt), Colors.orange, (){print('prova3');}),
-                   ContainerButton("Logout", FaIcon(FontAwesomeIcons.signOutAlt), Colors.greenAccent, (){print('prova2');}),
-                    
-                    
-                  ],
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                )
-              )
+
             ],
           ),
         ],

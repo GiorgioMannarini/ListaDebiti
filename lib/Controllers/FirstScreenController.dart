@@ -8,6 +8,8 @@ class FirstScreenController extends BaseController {
   final LoginController loginController = LoginController();
 
   void logoutButton(BuildContext context) {
-    loginController.signOut();
+    loginController.signOut().then((_){
+      Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) {return LoginPage();}), ModalRoute.withName('/'));
+    });
   }
 }

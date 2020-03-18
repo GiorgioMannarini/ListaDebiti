@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lista_debiti/Views/Screens/FirstScreen_old.dart';
+import 'package:lista_debiti/Views/Screens/FirstScreen.dart';
 
 import 'package:lista_debiti/Views/Screens/LoginPage.dart';
 //TODO: Keystore registration

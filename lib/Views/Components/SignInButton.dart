@@ -10,14 +10,14 @@ class SignInButton extends StatelessWidget {
     return OutlineButton(
       splashColor: Colors.grey,
       onPressed: () {
-        loginController.signInWithGoogle().then((str) {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) {
-                return FirstScreen();
-              },
-            ),
-          );
+        loginController.signInWithGoogle().then((idToken) {
+          loginController.sendLogin(idToken).then((result){
+            if (result == true){
+              Navigator.pushNamed(context, '/mainPage');
+            }
+          });
+
+
         });
       },
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
