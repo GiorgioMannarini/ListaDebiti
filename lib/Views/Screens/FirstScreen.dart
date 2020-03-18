@@ -48,13 +48,29 @@ class _FirstScreenState extends State<FirstScreen> {
                       ContainerButton("Logout", Icon(Icons.exit_to_app), Colors.greenAccent, (){firstScreenController.logoutButton(context);}),
                     ],
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  )
+                  ),
+                  
+                  
               ),
 
             ],
           ),
+          
+          
+        
         ],
       ),
+      
+      floatingActionButton: FloatingActionButton(
+                    child: Icon(Icons.add),
+                    onPressed: (){},
+                    elevation: 5,
+                    backgroundColor: Theme.of(context).accentColor,
+                    splashColor: Theme.of(context).primaryColor,
+                    
+
+                  ), 
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }

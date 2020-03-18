@@ -38,7 +38,7 @@ class ContainerButton extends StatelessWidget {
         
         color: Colors.white, // button color
         child: InkWell(
-          splashColor: Colors.green, // splash color
+          splashColor: Theme.of(context).primaryColor, // splash color
           onTap: () {onIconPress();}, // button pressed
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
