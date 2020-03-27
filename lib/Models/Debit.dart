@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 
-class Debit{
+  class Debit{
 
   final String title;
   final double amount;
