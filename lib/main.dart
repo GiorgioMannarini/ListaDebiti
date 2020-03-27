@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lista_debiti/Views/Screens/FirstScreen.dart';
+import 'Views/Screens/EasterEgg.dart';
 
 import 'package:lista_debiti/Views/Screens/LoginPage.dart';
 //TODO: Keystore registration
@@ -15,6 +16,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => LoginPage(),
         '/mainPage': (context) =>FirstScreen(),
+        '/easterEgg': (context) =>EasterEggScreen(),
 
       },
       title: 'Flutter Login',

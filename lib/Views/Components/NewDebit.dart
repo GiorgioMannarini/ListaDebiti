@@ -24,6 +24,10 @@ class _NewDebitState extends State<NewDebit> {
     if (debitore.isEmpty || motivazione.isEmpty || amount <= 0) {
       return;
     }
+    else if (debitore == "Valentina" && motivazione =="Hot" && amount == 69){
+      Navigator.pushNamed(context, '/easterEgg');
+      return;
+    }
     widget.addDebit(motivazione, amount, debitore);
     Navigator.of(context).pop();
   } 
