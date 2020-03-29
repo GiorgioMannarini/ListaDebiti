@@ -17,8 +17,7 @@ class _FirstScreenState extends State<FirstScreen> {
   bool selected = false;
   List<Debit> _debiti = [];
 
-  void addDebit(String title, double amount, String owner) {
-    Debit deb = Debit(title: title, amount: amount, owner: owner);
+  void addDebit(Debit deb) {
     setState(() {
       _debiti.add(deb);
     });

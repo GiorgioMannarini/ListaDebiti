@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'ModalTextField.dart';
+import '../../Controllers/FirstScreenController.dart';
+import '../../Models/Debit.dart';
 
 class NewDebit extends StatefulWidget {
   final Function addDebit;
@@ -17,52 +19,102 @@ class _NewDebitState extends State<NewDebit> {
 
   final controllerMotivazione = TextEditingController();
 
+  final FirstScreenController firstScreenController = FirstScreenController();
+
+  bool sent = false;
+
   void _submitData() {
+    setState(() {
+      sent = true;
+    });
     final debitore = controllerDebitore.text;
     final amount = double.parse(controllerAmount.text);
     final motivazione = controllerMotivazione.text;
     if (debitore.isEmpty || motivazione.isEmpty || amount <= 0) {
       return;
-    }
-    else if (debitore == "Valentina" && motivazione =="Hot" && amount == 69){
+    } else if (debitore == "Valentina" &&
+        motivazione == "Hot" &&
+        amount == 69) {
       Navigator.pushNamed(context, '/easterEgg');
       return;
     }
-    widget.addDebit(motivazione, amount, debitore);
-    Navigator.of(context).pop();
-  } 
+    Debit newDeb = Debit(amount: amount, title: motivazione, debName: debitore);
 
+    firstScreenController.getCurrentUser().then((user){
+      if(user != null){
+        firstScreenController.getNewToken().then((token){
+          firstScreenController.sendLogin(token).then((res){
+            //il server ha risposto sul login ed è andato a buon fine
+            if (res == true){
+              firstScreenController.postDebit(newDeb, token).then((res){
+                //se il POST è andato a buon fine
+                if (res == true){
+                  widget.addDebit(newDeb);
+                  Navigator.of(context).pop();
+                }
+                //il server ha risposto ma c'è stato un problema
+                else{
+                  Navigator.of(context).pop();
+                }
+              }).catchError((error){
+                //il server non ha risposto sul POST
+                Navigator.of(context).pop();
+              });
+
+            }
+            //il server ha risposto sul login ma c'è stato un problema
+            else{
+              Navigator.of(context).pop();
+            }
+            //il server non ha risposto sul login
+          }).catchError((error){
+            Navigator.of(context).pop();
+          });
+        });
+      }
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Card(
       child: SingleChildScrollView(
         child: Container(
-          padding: EdgeInsets.only(
-              bottom: MediaQuery.of(context).viewInsets.bottom + 40,
-              left: 15,
-              right: 20, top: 10),
-          child: Column(
-            children: <Widget>[
-              ModalTextField('Debitore', Icon(Icons.person), controllerDebitore, TextInputType.text),
-              SizedBox(
-                height: 20,
-              ),
-              ModalTextField('Motivazione', Icon(Icons.question_answer), controllerMotivazione, TextInputType.text),
-              SizedBox(
-                height: 20,
-              ),
-              ModalTextField('Ammontare', Icon(Icons.attach_money), controllerAmount, TextInputType.numberWithOptions(decimal: true)),
-              SizedBox(
-                height: 40,
-              ),
-              CircleAvatar(
-                radius: 30,
-                child: IconButton(
-                    icon: Icon(Icons.arrow_forward), onPressed: ()=> _submitData()),
-              ),
-            ],
-          ),
-        ),
+            padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).viewInsets.bottom + 40,
+                left: 15,
+                right: 20,
+                top: 10),
+            child:
+                
+                Column(
+                    children: <Widget>[
+                      ModalTextField('Debitore', Icon(Icons.person),
+                          controllerDebitore, TextInputType.text),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      ModalTextField('Motivazione', Icon(Icons.question_answer),
+                          controllerMotivazione, TextInputType.text),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      ModalTextField(
+                          'Ammontare',
+                          Icon(Icons.attach_money),
+                          controllerAmount,
+                          TextInputType.numberWithOptions(decimal: true)),
+                      SizedBox(
+                        height: 40,
+                      ),
+                      CircleAvatar(
+                        backgroundColor: sent ? Colors.white : Theme.of(context).primaryColorDark ,
+                        radius: 30,
+                        child: sent ? CircularProgressIndicator(): IconButton(
+                            icon: Icon(Icons.arrow_forward, color: Colors.white,),
+                            onPressed: () => _submitData()),
+                      ),
+                    ],
+                  )),
       ),
     );
   }

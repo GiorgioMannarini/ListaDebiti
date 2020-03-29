@@ -17,7 +17,7 @@ class DebitCard extends StatelessWidget {
         elevation: 5,
         child: Center(
           child: ListTile(
-            title: Text(debit.owner),
+            title: Text(debit.debName),
             leading: Container(
               width: 70,
               height: 50,
