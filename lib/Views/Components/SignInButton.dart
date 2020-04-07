@@ -3,17 +3,26 @@ import '../../Controllers/LoginController.dart';
 import '../Screens/FirstScreen_old.dart';
 
 class SignInButton extends StatelessWidget {
-
+  VoidCallback updateState;
+  BuildContext parentContext;
   final LoginController loginController = LoginController();
+
+  SignInButton({@required this.updateState, @required this.parentContext});
+
+
   @override
   Widget build(BuildContext context) {
     return OutlineButton(
       splashColor: Colors.grey,
       onPressed: () {
+        this.updateState();
         loginController.signInWithGoogle().then((idToken) {
           loginController.sendLogin(idToken).then((result){
             if (result == true){
-              Navigator.pushNamed(context, '/mainPage');
+              Navigator.pushNamed(parentContext, '/mainPage');
+            }
+            else{
+              this.updateState();
             }
           });
 

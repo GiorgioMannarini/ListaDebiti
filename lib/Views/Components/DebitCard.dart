@@ -6,7 +6,7 @@ class DebitCard extends StatelessWidget {
   final Function deleteDebit;
 
   DebitCard(this.debit, this.deleteDebit);
-
+  //TODO: FUNZIONE PER ELIMINARE DEBITO DAL DATABASE
   @override
   Widget build(BuildContext context) {
     return Container(

@@ -7,6 +7,7 @@ import '../Components/NewDebit.dart';
 import '../../Models/Debit.dart';
 import '../Components/DebitCard.dart';
 
+//TODO: AL CARICAMENTO DELLA SCHERMATA DEVE PRENDERE I DATI DAL DB E ALL'AGGIUNTA DEL DEBITO DEVE SALVARLO
 class FirstScreen extends StatefulWidget {
   @override
   _FirstScreenState createState() => _FirstScreenState();
@@ -24,8 +25,23 @@ class _FirstScreenState extends State<FirstScreen> {
   }
 
   void deleteDebit(Debit deb) {
-    setState(() {
-      _debiti.remove(deb);
+    firstScreenController.getCurrentUser().then((user) {
+      if (user != null) {
+        firstScreenController.getNewToken().then((token) {
+          firstScreenController.sendLogin(token).then((res) {
+            //il server ha risposto sul login ed è andato a buon fine
+            if (res == true) {
+              firstScreenController.deleteDebit(deb, token).then((res) {
+                if (res == true) {
+                  setState(() {
+                    _debiti.remove(deb);
+                  });
+                }
+              });
+            }
+          });
+        });
+      }
     });
   }
 

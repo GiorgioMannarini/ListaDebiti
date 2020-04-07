@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import '../Components/SignInButton.dart';
 import '../../Controllers/LoginController.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+
 
 class LoginPage extends StatefulWidget {
   @override
@@ -26,6 +25,12 @@ class _LoginPageState extends State<LoginPage> {
           doSilentLogin(tk);
         });
       }
+    });
+  }
+
+  void updateStateOnButtonPressed(){
+    setState(() {
+      loginPresent = !loginPresent;
     });
   }
 
@@ -57,7 +62,7 @@ class _LoginPageState extends State<LoginPage> {
             children: <Widget>[
               FlutterLogo(size: 150),
               SizedBox(height: 50),
-              loginPresent ? CircularProgressIndicator() : SignInButton()
+              loginPresent ? CircularProgressIndicator() : SignInButton(updateState: updateStateOnButtonPressed, parentContext: context,)
             ],
           ),
         ),

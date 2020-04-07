@@ -20,11 +20,6 @@ class ContainerButton extends StatelessWidget {
       size: Size(70, 70), // button width and height
       child: Container(
         decoration: BoxDecoration(
-
-            /*border: Border.all(
-        color: color, 
-        width: 2,
-      ), */
             borderRadius: BorderRadius.circular(40)),
         child: ClipOval(
           child: Material(

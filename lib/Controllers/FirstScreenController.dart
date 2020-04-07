@@ -28,9 +28,27 @@ Future postDebit(Debit debit, String token) async {
   }, body: {
     "name": debit.debName,
     "amount": debit.amount.toString(),
-    "reason": debit.title
+    "reason": debit.title, 
+    "timestamp": debit.timestamp.toString(),
   });
   if (response.statusCode == 200){
+    return true;
+  }
+  else{
+    return false;
+  }
+}
+
+Future deleteDebit(Debit debit, String token) async {
+  var url = "http://127.0.0.1:8000/deletedebit/";
+  var response = await http.post(url, headers: {
+    'Content-Type': 'application/x-www-form-urlencoded',
+    HttpHeaders.authorizationHeader: token
+  }, body: {
+    "timestamp": debit.timestamp.toString(), //mando solo timestamp insieme a chi ha creato il debito
+    
+  });
+   if (response.statusCode == 200){
     return true;
   }
   else{
