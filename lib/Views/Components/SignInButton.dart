@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../Controllers/LoginController.dart';
-import '../Screens/FirstScreen_old.dart';
+
 
 class SignInButton extends StatelessWidget {
   VoidCallback updateState;
@@ -24,9 +24,13 @@ class SignInButton extends StatelessWidget {
             else{
               this.updateState();
             }
+          }).catchError((err){
+            this.updateState();
           });
 
 
+        }).catchError((err){
+          this.updateState();
         });
       },
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),

@@ -55,5 +55,23 @@ Future deleteDebit(Debit debit, String token) async {
     return false;
   }
 }
+
+Future getListaDebiti(String token) async {
+  var url = "http://127.0.0.1:8000/getalldebits/";
+  var response = await http.get(url, headers: {
+    'Content-Type': 'application/x-www-form-urlencoded',
+    HttpHeaders.authorizationHeader: token
+  }
+  );
+  if (response.statusCode == 200){
+    return response.body;
+  }
+  else{
+    return false;
+  }
 }
+
+
+}
+
 

@@ -22,7 +22,7 @@ class _LoginPageState extends State<LoginPage> {
         });
         //refresha il token dell'utente loggato ed esegue il silent login
         loginController.getNewToken().then((tk) {
-          doSilentLogin(tk);
+          _doSilentLogin(tk);
         });
       }
     });
@@ -34,7 +34,7 @@ class _LoginPageState extends State<LoginPage> {
     });
   }
 
-  void doSilentLogin(token) {
+  void _doSilentLogin(token) {
     loginController.sendLogin(token).then((result) {
       if (result == true) {
         Navigator.pushNamed(context, '/mainPage');

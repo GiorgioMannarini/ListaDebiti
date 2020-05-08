@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import '../Components/ChartContainer.dart';
 import '../Components/ActionsContainer.dart';
@@ -17,6 +19,41 @@ class _FirstScreenState extends State<FirstScreen> {
   final FirstScreenController firstScreenController = FirstScreenController();
   bool selected = false;
   List<Debit> _debiti = [];
+  bool loadingFinished = false;
+  //prendo la lista dei debiti
+
+  void initState() {
+    super.initState();
+    firstScreenController.getCurrentUser().then((user) {
+      if (user != null) {
+        firstScreenController.getNewToken().then((token) {
+          firstScreenController.sendLogin(token).then((res) {
+            //il server ha risposto sul login ed è andato a buon fine
+            if (res == true) {
+              firstScreenController.getListaDebiti(token).then((res) {
+                if (res != false) {
+                  res = jsonDecode(res);
+                  for (int i = 0; i < res.length; i++) {
+                    var elem = res[i];
+                    print(elem);
+                    Debit deb = new Debit(
+                        title: elem['reason'],
+                        amount: double.parse(elem['amount']),
+                        debName: elem['debtor_name'],
+                        timestamp: elem['timestamp']);
+                    _debiti.add(deb);
+                  }
+                  setState(() {
+                    loadingFinished = true;
+                  });
+                }
+              });
+            }
+          });
+        });
+      }
+    });
+  }
 
   void addDebit(Debit deb) {
     setState(() {
@@ -25,12 +62,16 @@ class _FirstScreenState extends State<FirstScreen> {
   }
 
   void deleteDebit(Debit deb) {
+    print('prova');
     firstScreenController.getCurrentUser().then((user) {
       if (user != null) {
+        print('prova2');
         firstScreenController.getNewToken().then((token) {
+          print('prova');
           firstScreenController.sendLogin(token).then((res) {
             //il server ha risposto sul login ed è andato a buon fine
             if (res == true) {
+              print('prova3');
               firstScreenController.deleteDebit(deb, token).then((res) {
                 if (res == true) {
                   setState(() {
@@ -111,13 +152,16 @@ class _FirstScreenState extends State<FirstScreen> {
                 height: 10,
               ),
               Flexible(
-                child: ListView.builder(
-                  itemBuilder: (_, ind) {
-                    return DebitCard(_debiti[ind], deleteDebit);
-                  },
-                  itemCount: _debiti.length,
-                ),
-              ),
+                  child: loadingFinished
+                      ? ListView.builder(
+                          itemBuilder: (_, ind) {
+                            return DebitCard(_debiti[ind], deleteDebit);
+                          },
+                          itemCount: _debiti.length,
+                        )
+                      : Center(
+                          child: CircularProgressIndicator(),
+                        )),
             ],
           ),
         ],

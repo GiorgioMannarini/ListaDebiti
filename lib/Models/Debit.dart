@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
   final String debName;
   final int timestamp;
 
-  Debit({@required this.title, @required this.amount, @required this.debName, this.timestamp});
+  Debit({@required this.title, @required this.amount, @required this.debName, @required this.timestamp});
 
 
 }
