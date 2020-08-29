@@ -1,8 +1,9 @@
-# lista_debiti
+# Lista Debiti
 
-A new Flutter project.
+A fun mobile app to keep track of personal debts in a group of friends. Developed just for fun during Covid-19 quarantine.
+### Work in progress
 
-## Getting Started
+## 
 
 This project is a starting point for a Flutter application.
 
