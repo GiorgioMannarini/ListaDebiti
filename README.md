@@ -3,15 +3,15 @@
 A fun mobile app to keep track of personal debts in a group of friends. Developed just for fun during Covid-19 quarantine.
 ### Work in progress
 
-## 
+# What did I use
 
-This project is a starting point for a Flutter application.
+#### Frontend: 
+  - Flutter Framework
+#### Backend: 
+  - Python - Django Framework (Not in this rep).
+#### Database:
+  - MySQL & Firebase for Google Authentication
 
-A few resources to get you started if this is your first Flutter project:
+# Note:
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+  This projects is still in an incompleted beta state. A lot of code must be simplified and optimized. 
