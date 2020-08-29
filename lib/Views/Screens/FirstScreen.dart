@@ -18,12 +18,10 @@ class FirstScreen extends StatefulWidget {
 class _FirstScreenState extends State<FirstScreen> {
   final FirstScreenController firstScreenController = FirstScreenController();
   bool selected = false;
-  List<Debit> _debiti = [];
+  List<Debit> _debiti = List<Debit>();
   bool loadingFinished = false;
   //prendo la lista dei debiti
-
-  void initState() {
-    super.initState();
+  Future _getDebits() async {
     firstScreenController.getCurrentUser().then((user) {
       if (user != null) {
         firstScreenController.getNewToken().then((token) {
@@ -33,16 +31,25 @@ class _FirstScreenState extends State<FirstScreen> {
               firstScreenController.getListaDebiti(token).then((res) {
                 if (res != false) {
                   res = jsonDecode(res);
+                  _debiti = [];
+                  
+
                   for (int i = 0; i < res.length; i++) {
                     var elem = res[i];
-                    print(elem);
+
+                    String title = elem['reason'];
+                    double amount = double.parse(elem['amount']);
+                    String debName = elem['debtor_name'];
+                    int timestamp = elem['timestamp'];
+
                     Debit deb = new Debit(
-                        title: elem['reason'],
-                        amount: double.parse(elem['amount']),
-                        debName: elem['debtor_name'],
-                        timestamp: elem['timestamp']);
+                        title: title,
+                        amount: amount,
+                        debName: debName,
+                        timestamp: timestamp);
                     _debiti.add(deb);
                   }
+
                   setState(() {
                     loadingFinished = true;
                   });
@@ -55,6 +62,11 @@ class _FirstScreenState extends State<FirstScreen> {
     });
   }
 
+  void initState() {
+    super.initState();
+    _getDebits();
+  }
+
   void addDebit(Debit deb) {
     setState(() {
       _debiti.add(deb);
@@ -62,16 +74,12 @@ class _FirstScreenState extends State<FirstScreen> {
   }
 
   void deleteDebit(Debit deb) {
-    print('prova');
     firstScreenController.getCurrentUser().then((user) {
       if (user != null) {
-        print('prova2');
         firstScreenController.getNewToken().then((token) {
-          print('prova');
           firstScreenController.sendLogin(token).then((res) {
             //il server ha risposto sul login ed è andato a buon fine
             if (res == true) {
-              print('prova3');
               firstScreenController.deleteDebit(deb, token).then((res) {
                 if (res == true) {
                   setState(() {
@@ -153,11 +161,14 @@ class _FirstScreenState extends State<FirstScreen> {
               ),
               Flexible(
                   child: loadingFinished
-                      ? ListView.builder(
-                          itemBuilder: (_, ind) {
-                            return DebitCard(_debiti[ind], deleteDebit);
-                          },
-                          itemCount: _debiti.length,
+                      ? RefreshIndicator(
+                          child: ListView.builder(
+                            itemBuilder: (_, ind) {
+                              return DebitCard(_debiti[ind], deleteDebit);
+                            },
+                            itemCount: _debiti.length,
+                          ),
+                          onRefresh: _getDebits,
                         )
                       : Center(
                           child: CircularProgressIndicator(),
