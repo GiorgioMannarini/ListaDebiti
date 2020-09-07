@@ -3,7 +3,7 @@
 A fun mobile app to keep track of personal debts in a group of friends. Developed just for fun during Covid-19 quarantine.
 ### Work in progress
 
-# What did I use
+# What I used
 
 #### Frontend: 
   - Flutter Framework
